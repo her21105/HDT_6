@@ -5,7 +5,7 @@ import java.io.FileNotFoundException;
 public interface estructura {
 
 	
-public void IngresoUsuario(String categoria, String nombre, int cantidad);
+public void IngresoUsuario(String categoria, int Num, String nombre, int cantidad);
 
 public void IngresoVariosUsuario(int varios);
 
@@ -15,10 +15,10 @@ public void IngresoProducto() throws FileNotFoundException;
 
 public void ImprimirProducto();
 
-public void ImprimirProductoFiltro();
+public void ImprimirProductoFiltro(String filtro);
 
 public void ImprimirUsuario();
 
-public void ImprimirUsuarioFiltro();
+public void ImprimirUsuarioFiltro(String filtro);
 
 }

@@ -18,24 +18,26 @@ public class HMap implements estructura {
 	//producto
 	
 	//crear HashMap
-	Map<String,producto> listaUsuario = new HashMap<String, producto>() ;
-	Map<String,String> listaProducto = new HashMap<String, String>();
+	Map<categorizar,producto> listaUsuario = new HashMap<categorizar, producto>() ;
+	Map<categorizar,String> listaProducto = new HashMap<categorizar, String>();
 	ArrayList <String> categorias = new ArrayList <String> ();
+	ArrayList <String> NombreProductos = new ArrayList <String>();
 	
 	
-	public void ingresoUsuario(String categoria, String nombre, int cantidad) {
+	
+	public void IngresoUsuario(String categoria, int Num, String nombre, int cantidad) {
 		
 		//necesita un comparador para saber si existe una x categoria
 		
 		producto A1 = new producto(nombre, cantidad);
+		categorizar B1 = new categorizar(Num, categoria);
 		
-		listaUsuario.put(categoria, A1);
-		
-		
-		
+		listaUsuario.put(B1, A1);
+
 	}
 	
-	public void ingresoVariosUsuario(int varios) {
+	
+	public void IngresoVariosUsuario(int varios) {
 		
 		Scanner scan = new Scanner(System.in); //primero ingreso de la categoria
 		String categoria = scan.nextLine();
@@ -46,7 +48,7 @@ public class HMap implements estructura {
 				
 				String nombre = scan.nextLine();
 				int cantidad = Integer.parseInt(scan.nextLine());
-				ingresoUsuario(categoria, nombre, cantidad);
+				IngresoUsuario(categoria,i, nombre, cantidad);
 				
 			}
 			
@@ -65,7 +67,6 @@ public class HMap implements estructura {
 				
 				return true;
 				
-				
 			}
 			
 		}
@@ -74,25 +75,94 @@ public class HMap implements estructura {
 		
 	}
 	
-	public void ingresoProducto() throws FileNotFoundException {
+	public void IngresoProducto() throws FileNotFoundException {
 		
-		ClassLoader classLoader = getClass().getClassLoader(); //buscador de clases o recursos
         File file = new File("C:\\Users\\Joabh\\Documents\\workplace\\hoja_6\\src\\hoja_6\\ListadoProducto.txt");
         Scanner s = new Scanner(file);
         
+        
+        int i = 0;
+        
         while (s.hasNextLine()){
+        	
+        	i++;
+        	
             String linea = s.nextLine();
             String[] items = linea.split("\\|");
             
             String categoria = items[0];
             String nombre = items[1];
-
-            listaProducto.put(categoria, nombre);
+            
+            categorizar B2 = new categorizar(i, categoria);
+            listaProducto.put(B2, nombre);
             categorias.add(categoria);
-            System.out.println(categoria +" "+nombre);
+            
         }
         s.close();
 		
+	}
+
+
+	
+	public void ImprimirProducto() {
+		// TODO Auto-generated method stub
+	listaProducto.entrySet().forEach(entry->{
+				
+				System.out.println(entry.getKey().getCategoria() + " | "+ entry.getValue());
+	
+			});	
+		
+	}
+
+	
+	public void ImprimirProductoFiltro(String filtro) {
+		// TODO Auto-generated method stub
+		
+		if(ComprobarCategoria(filtro)) {
+			listaProducto.entrySet().forEach(entry->{
+				
+				
+				if(filtro.equalsIgnoreCase(entry.getKey().getCategoria()) == true) {
+					System.out.println(entry.getKey() + " | "+ entry.getValue());
+				}
+
+			});	
+			
+		}else {
+			System.out.println("escriba la categoria correctamente");
+		
+		
+		}
+	}
+
+
+	public void ImprimirUsuario() {
+		// TODO Auto-generated method stub
+		
+		listaUsuario.entrySet().forEach(entry->{
+			
+			System.out.println(entry.getKey() + " | "+ entry.getValue());
+
+		});	
+	}
+
+	public void ImprimirUsuarioFiltro(String filtro) {
+		// TODO Auto-generated method stub
+		if(ComprobarCategoria(filtro)) {
+			listaUsuario.entrySet().forEach(entry->{
+				
+				
+				if(filtro.equalsIgnoreCase(entry.getKey().getCategoria()) == true) {
+					System.out.println(entry.getKey() + " | "+ entry.getValue());
+				}
+
+			});	
+			
+		}else {
+			System.out.println("escriba la categoria correctamente");
+		
+		
+		}
 	}
 
 	

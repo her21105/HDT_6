@@ -44,6 +44,8 @@ public class main {
 		}
 		
 			
+			tipoListas.IngresoProducto();
+		
 			do {
 				
 				//menu
@@ -63,27 +65,39 @@ public class main {
 					
 					case 1:
 						
-						
+						tipoListas.ImprimirProducto();
 						
 						break;
 					
 					case 2:
 						
+						String filtro = userInput.nextLine();
+						
+						tipoListas.ImprimirProductoFiltro(filtro);
 						
 						break;
 						
 					case 3:
 						
+						tipoListas.ImprimirUsuario();
 						
 						break;
 						
 					case 4: 
 						
+						String filtro2 = userInput.nextLine();
+						
+						tipoListas.ImprimirProductoFiltro(filtro2);
 						
 						break;
 						
 					case 5:
 						
+						System.out.println("cuantos productos de una categoria desea agregar?");
+						
+						int varios = Integer.parseInt(userInput.nextLine());
+						
+						tipoListas.IngresoVariosUsuario(varios);
 						
 						break;
 						
@@ -102,7 +116,13 @@ public class main {
 				}
 				
 				
-			}while(actividad = false);
+				System.out.println("desea salir del sistema? Y/N");
+				String des = userInput.nextLine();
+				if(des.equalsIgnoreCase("N")) {
+					actividad = false;
+				}
+				
+			}while(actividad = true);
 			
 			
 			
