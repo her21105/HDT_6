@@ -39,16 +39,27 @@ public class HMap implements estructura {
 	
 	public void IngresoVariosUsuario(int varios) {
 		
+		
+		
 		Scanner scan = new Scanner(System.in); //primero ingreso de la categoria
+		System.out.println("ingrese la categoria que desea comprar");
 		String categoria = scan.nextLine();
 		
-		if(ComprobarCategoria(categoria)) {//analizar si la categoria 
+		if(ComprobarCategoria(categoria) == true) {//analizar si la categoria 
 			
 			for (int i = 0; i< varios; i++) {
 				
+				
 				String nombre = scan.nextLine();
-				int cantidad = Integer.parseInt(scan.nextLine());
-				IngresoUsuario(categoria,i, nombre, cantidad);
+				
+				if(ComprobarProducto(nombre, categoria)) {
+					
+					System.out.println("ingrese la cantidad de produco que desea");
+					int cantidad = Integer.parseInt(scan.nextLine());
+					IngresoUsuario(categoria,i, nombre, cantidad);
+					
+				}
+				
 				
 			}
 			
@@ -61,10 +72,14 @@ public class HMap implements estructura {
 	
 	public boolean ComprobarCategoria(String categoria) {
 		
+		
 		for (int i = 0; i < categorias.size(); i++) {
 			
-			if(categorias.get(i).equalsIgnoreCase(categoria) == true) {
+
+			
+			if(categorias.get(i).equalsIgnoreCase(categoria)) {
 				
+
 				return true;
 				
 			}
@@ -74,6 +89,44 @@ public class HMap implements estructura {
 		return false;
 		
 	}
+	
+	public boolean ComprobarProducto(String producto, String categoria3) {
+		
+		muestra(categoria3);
+		
+		for (int i = 0; i < NombreProductos.size(); i++) {
+			
+			if(NombreProductos.get(i).equalsIgnoreCase(producto)) {
+				
+				return true;
+				
+			}
+			
+		NombreProductos.clear();
+			
+		}
+		
+		
+		return false;
+	}
+	
+	public void muestra(String categoria2) {
+		
+		if(ComprobarCategoria(categoria2)) {
+			listaProducto.entrySet().forEach(entry->{
+				
+				if(categoria2.equalsIgnoreCase(entry.getKey().getCategoria()) == true) {
+					
+					NombreProductos.add(entry.getValue());
+				}
+
+			});	
+		
+		}
+		
+	}
+	
+	
 	
 	public void IngresoProducto() throws FileNotFoundException {
 		
@@ -95,10 +148,17 @@ public class HMap implements estructura {
             
             categorizar B2 = new categorizar(i, categoria);
             listaProducto.put(B2, nombre);
-            categorias.add(categoria);
+            
+            
+            categorias.add(categoria.trim());
+            
+            
+            
             
         }
         s.close();
+        
+        
 		
 	}
 
